@@ -1,0 +1,182 @@
+<section class="demo-section">
+
+  <header class="section-header">
+    <h3 class="section-header-title">Basic usage</h3>
+  </header>
+
+  <div class="scroll-container-wrapper">
+    <div class="scroll-container basic-container" #basicScroll>
+      <div class="scroll-content">1</div>
+      <div class="scroll-content">2</div>
+      <div class="scroll-content">3</div>
+      <div class="scroll-content">4</div>
+      <div class="scroll-content">5</div>
+      <div class="scroll-content">6</div>
+      <div class="scroll-content">7</div>
+      <div class="scroll-content">8</div>
+      <div class="scroll-content">9</div>
+      <div class="scroll-console">
+        <mat-form-field color="accent">
+          <input matInput type="number" min="1" max="9" name="basic-scroll-navigator" [(ngModel)]="basic.nth" />
+        </mat-form-field>
+        <button type="button" mat-raised-button (click)="basicSmoothScroll()" color="accent">Go!</button>
+      </div>
+    </div>
+  </div>
+
+  <form class="console-box">
+    <div class="console-box-item">
+      <h4 class="item-title">duration</h4>
+      <mat-slider name="basic-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="basic.options.duration" [displayWith]="durationLabel"></mat-slider>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">timing-function</h4>
+      <mat-form-field color="accent">
+        <input matInput type="text" name="basic-timing-function" [(ngModel)]="basic.options.timingFunction" />
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">x align</h4>
+      <mat-form-field color="accent">
+        <select matNativeControl name="basic-align-x" [(ngModel)]="basic.options.alignX">
+          <option value="start">start</option>
+          <option value="center">center</option>
+          <option value="end">end</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">y align</h4>
+      <mat-form-field color="accent">
+        <select matNativeControl name="basic-align-y" [(ngModel)]="basic.options.alignY">
+          <option value="start">start</option>
+          <option value="center">center</option>
+          <option value="end">end</option>
+        </select>
+      </mat-form-field>
+    </div>
+  </form>
+
+</section>
+
+
+<section class="demo-section">
+
+  <header class="section-header">
+    <h3 class="section-header-title">Wheel event directive</h3>
+  </header>
+
+  <div class="scroll-container"
+    ngxSmoothScrollWheel
+    child-selector=".scroll-content"
+    [enable]="wheel.enabled"
+    [options]="wheel.options"
+    [direction]="wheel.direction"
+    [skip]="wheel.skip"
+    [attr.direction]="wheel.direction"
+  >
+    <div class="scroll-content">1</div>
+    <div class="scroll-content">2</div>
+    <div class="scroll-content">3</div>
+    <div class="scroll-content">4</div>
+    <div class="scroll-content">5</div>
+    <div class="scroll-content">6</div>
+    <div class="scroll-content">7</div>
+    <div class="scroll-content">8</div>
+    <div class="scroll-content">9</div>
+  </div>
+
+  <form class="console-box">
+    <div class="console-box-item">
+      <h4 class="item-title">enable</h4>
+      <mat-slide-toggle name="wheel-enable" [(ngModel)]="wheel.enabled"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">duration</h4>
+      <mat-slider name="wheel-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="wheel.options.duration" [displayWith]="durationLabel"></mat-slider>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">timing-function</h4>
+      <mat-form-field color="accent">
+        <input matInput type="text" name="wheel-timing-function" [(ngModel)]="wheel.options.timingFunction" />
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">direction</h4>
+      <mat-form-field color="accent">
+        <select matNativeControl name="wheel-direction" [(ngModel)]="wheel.direction">
+          <option value="horizontal">horizontal</option>
+          <option value="vertical">vertical</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">skip</h4>
+      <mat-form-field color="accent">
+        <input matInput type="number" name="wheel-skip" [(ngModel)]="wheel.skip" />
+      </mat-form-field>
+    </div>
+  </form>
+
+</section>
+
+
+<section class="demo-section">
+
+  <header class="section-header">
+    <h3 class="section-header-title">Keyboard event directive</h3>
+  </header>
+
+  <div class="scroll-container"
+    ngxSmoothScrollKeyboard
+    child-selector=".scroll-content"
+    [enable]="keyboard.enabled"
+    [options]="keyboard.options"
+    [direction]="keyboard.direction"
+    [skip]="keyboard.skip"
+    [attr.direction]="keyboard.direction"
+  >
+    <div class="scroll-content">1</div>
+    <div class="scroll-content">2</div>
+    <div class="scroll-content">3</div>
+    <div class="scroll-content">4</div>
+    <div class="scroll-content">5</div>
+    <div class="scroll-content">6</div>
+    <div class="scroll-content">7</div>
+    <div class="scroll-content">8</div>
+    <div class="scroll-content">9</div>
+  </div>
+
+  <form class="console-box">
+    <div class="console-box-item">
+      <h4 class="item-title">enable</h4>
+      <mat-slide-toggle name="keyboard-enable" [(ngModel)]="keyboard.enabled"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">duration</h4>
+      <mat-slider name="keyboard-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="keyboard.options.duration" [displayWith]="durationLabel"></mat-slider>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">timing-function</h4>
+      <mat-form-field color="accent">
+        <input matInput type="text" name="keyboard-timing-function" [(ngModel)]="keyboard.options.timingFunction" />
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">direction</h4>
+      <mat-form-field color="accent">
+        <select matNativeControl name="keyboard-direction" [(ngModel)]="keyboard.direction">
+          <option value="horizontal">horizontal</option>
+          <option value="vertical">vertical</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">skip</h4>
+      <mat-form-field color="accent">
+        <input matInput type="number" name="keyboard-skip" [(ngModel)]="keyboard.skip" />
+      </mat-form-field>
+    </div>
+  </form>
+
+</section>

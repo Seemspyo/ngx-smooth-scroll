@@ -1,0 +1,149 @@
+@import '~@angular/material/theming';
+
+:host {
+    display: block;
+    width: 100%; height: 100%;
+    overflow: { x: hidden; y: auto; }
+    background-color: #fff;
+}
+
+.demo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:not(:first-of-type) {
+        margin-top: 24px;
+    }
+
+    &:last-of-type {
+        margin-bottom: 32px;
+    }
+
+}
+
+header.section-header {
+    margin: 32px 0 12px;
+}
+
+.scroll-container {
+    width: 340px; height: 340px;
+    overflow: auto;
+    display: flex;
+    max-width: 100%;
+
+    &[direction=vertical] {
+        flex-direction: column;
+    }
+
+    &[direction=horizontal] {
+        flex-direction: row;
+    }
+
+    .scroll-content {
+        width: 100%; height: 100%;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font: {
+            size: 3rem;
+            weight: 600;
+        }
+        color: #fff;
+
+        &:not(:nth-of-type(2n)) {
+            background-color: skyblue;
+        }
+
+        &:nth-of-type(2n) {
+            background-color: orange;
+        }
+
+    }
+
+    &.basic-container {
+        display: block;
+        background-color: #333;
+
+        .scroll-content {
+            width: 50%; height: 50%;
+            margin: 25%;
+            display: inline-block;
+            text-align: center;
+
+            &:nth-of-type(2n) {
+                margin-left: 125%;
+            }
+
+        }
+
+    }
+
+}
+
+
+.scroll-container-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-console {
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #efefef;
+    width: 60%;
+    margin: auto;
+    padding: 0 12px;
+    border-bottom: {
+        left-radius: 12px;
+        right-radius: 12px;
+    }
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+
+    mat-form-field {
+        width: 40%;
+        text-align: center;
+    }
+
+    button {
+        margin-left: 12px;
+    }
+
+}
+
+form.console-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 340px;
+    padding: 12px;
+    background-color: #efefef;
+
+    .console-box-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+
+        h4.item-title {
+            font-weight: 400;
+            width: 38%;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        > [class*=mat] {
+            width: 100%;
+        }
+
+        ::ng-deep .mat-slider-wrapper {
+            right: 0; left: 0;
+        }
+
+    }
+
+}

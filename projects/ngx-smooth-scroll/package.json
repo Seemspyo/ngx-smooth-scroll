@@ -1,0 +1,37 @@
+{
+  "name": "@eunsatio/ngx-smooth-scroll",
+  "version": "0.1.0",
+  "description": "Provide simple & configurable smooth scroll for Angular 7+",
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript",
+    "smooth",
+    "scroll",
+    "smooth scroll",
+    "smoothscroll",
+    "scrolling",
+    "scroll to",
+    "ngx",
+    "ng"
+  ],
+  "homepage": "https://github.com/Seemspyo/ngx-smooth-scroll",
+  "bugs": {
+    "url": "https://github.com/Seemspyo/ngx-smooth-scroll/issues",
+    "email": "eunsatio@eunsatio.io"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "SeemsPyo",
+    "email": "eunsatio@eunsatio.io",
+    "url": "https://eunsatio.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Seemspyo/ngx-smooth-scroll"
+  },
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  }
+}
