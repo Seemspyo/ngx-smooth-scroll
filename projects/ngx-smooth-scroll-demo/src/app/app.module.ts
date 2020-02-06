@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 /** Custom Modules */
-import { NgxSmoothScrollModule } from 'ngx-smooth-scroll';
+import { NgxSmoothScrollModule } from 'projects/ngx-smooth-scroll/src/public-api';
 
 /** Material Modules */
 import { MatInputModule } from '@angular/material/input';

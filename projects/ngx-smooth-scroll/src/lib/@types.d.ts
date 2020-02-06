@@ -13,3 +13,14 @@ export interface Coords {
 export type bezierArray = [number, number, number, number]
 
 export type NgxSmoothScrollKeyCodeMap = Map<'normal' | 'reverse', number[]>;
+
+export interface NgxSmoothScrollBeforeAnimateEvent {
+    currentIndex: number;
+    targetIndex: number;
+}
+
+export interface NgxSmoothScrollAfterAnimateEvent {
+    prevIndex: number;
+    currentIndex: number;
+    scrollCoords: Coords;
+}

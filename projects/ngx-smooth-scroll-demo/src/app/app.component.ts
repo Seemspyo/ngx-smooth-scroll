@@ -1,12 +1,8 @@
 /** Native Modules */
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
-/** Types */
-import { NgxSmoothScrollOption } from 'ngx-smooth-scroll';
-
-/** Services */
-import { NgxSmoothScrollService } from 'ngx-smooth-scroll';
+/** Custom Modules */
+import { NgxSmoothScrollService, NgxSmoothScrollOption } from 'projects/ngx-smooth-scroll/src/public-api';
 
 interface ScrollVariables {
   enabled: boolean;
@@ -22,9 +18,7 @@ interface ScrollVariables {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
-
-  private subscriptions: Array<Subscription> = []
+export class AppComponent {
 
   public basic: { nth: number; options: NgxSmoothScrollOption } = {
     nth: 2,
@@ -43,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
       timingFunction: 'ease'
     },
     direction: 'vertical',
-    skip: 1
+    skip: 0
   }
 
   public keyboard: ScrollVariables = {
@@ -53,7 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
       timingFunction: 'ease'
     },
     direction: 'vertical',
-    skip: 1
+    skip: 0
   }
 
   @ViewChild('basicScroll', { static: false }) basicScrollElRef: ElementRef;
@@ -61,13 +55,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private smoothScroll: NgxSmoothScrollService
   ) {}
-
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    for (const subscription of this.subscriptions) subscription.unsubscribe();
-  }
 
   public basicSmoothScroll(): void {
     const { nth, options } = this.basic;

@@ -14,20 +14,20 @@ import { Coords, NgxSmoothScrollOption } from './@types';
 })
 export class NgxSmoothScrollService {
 
-  public create(containerEl: HTMLElement, childSelector?: string): NgxSmoothScroll {
+  public createInstance(containerEl: HTMLElement, childSelector?: string): NgxSmoothScroll {
     return new NgxSmoothScroll(containerEl, childSelector);
   }
 
   public scrollTo(containerEl: HTMLElement, destination: Coords, options: NgxSmoothScrollOption): Observable<Coords> {
-    return this.create(containerEl).scrollTo(destination, options);
+    return this.createInstance(containerEl).scrollTo(destination, options);
   }
 
   public scrollToElement(containerEl: HTMLElement, childEl: HTMLElement, options?: NgxSmoothScrollOption): Observable<Coords> {
-    return this.create(containerEl).scrollToElement(childEl, options);
+    return this.createInstance(containerEl).scrollToElement(childEl, options);
   }
 
   public scrollToIndex(containerEl: HTMLElement, childSelector: string, index: number, options?: NgxSmoothScrollOption): Observable<Coords> {
-    return this.create(containerEl, childSelector).scrollToIndex(index, options);
+    return this.createInstance(containerEl, childSelector).scrollToIndex(index, options);
   }
 
 }

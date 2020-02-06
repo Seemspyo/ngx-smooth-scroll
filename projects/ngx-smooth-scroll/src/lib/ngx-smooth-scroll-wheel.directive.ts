@@ -1,12 +1,12 @@
 /** Native Modules */
-import { Directive, Input, AfterViewInit, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, Input, AfterViewInit, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 
 /** Custom Modules */
 import { NgxSmoothScroll } from './helpers/smooth-scroll.helper';
 import { IndexDetector } from './helpers/index-detector.helper';
 
 /** Types */
-import { NgxSmoothScrollOption } from './@types';
+import { NgxSmoothScrollOption, NgxSmoothScrollBeforeAnimateEvent, NgxSmoothScrollAfterAnimateEvent } from './@types';
 
 
 @Directive({
@@ -20,6 +20,9 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
   @Input() skip: number;
   @Input() direction: 'horizontal' | 'vertical';
   @Input() options: NgxSmoothScrollOption;
+
+  @Output() beforeAnimate: EventEmitter<NgxSmoothScrollBeforeAnimateEvent> = new EventEmitter();
+  @Output() afterAnimate: EventEmitter<NgxSmoothScrollAfterAnimateEvent> = new EventEmitter();
 
   private events: Array<() => void>;
   private enabled: boolean = false;
@@ -96,10 +99,11 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
       const
       direction = Math.sign(event.deltaY),
       currentIndex = this.currentIndex,
-      skip = typeof this.skip === 'number' ? this.skip : 1,
-      index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * skip)));
+      index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * (1 + (this.skip || 0)) )));
 
-      await this.smooth.scrollToElement(children[index], this.options).toPromise();
+      this.beforeAnimate.emit({ currentIndex, targetIndex: index });
+      const coords = await this.smooth.scrollToElement(children[index], this.options).toPromise();
+      this.afterAnimate.emit({ prevIndex: currentIndex, currentIndex: index, scrollCoords: coords });
 
       this.animating = false;
     }

@@ -29,7 +29,7 @@ export class NgxSmoothScroll {
     public scrollTo(destination: Coords, options: NgxSmoothScrollOption = {}): Observable<Coords> {
         const
         duration = typeof options.duration === 'number' ? options.duration : 600,
-        bezier = new Bezier(...this.parseTimingFunction(options.timingFunction || 'ease-in-out'));
+        bezier = new Bezier(...this.parseTimingFunction(options.timingFunction || 'ease'));
 
         const initial = this.getScrollCoords();
 
@@ -83,6 +83,7 @@ export class NgxSmoothScroll {
     }
 
     public interrupt(): boolean {
+        if (!this.interrupted) return false;
         return this.interrupted = true;
     }
 

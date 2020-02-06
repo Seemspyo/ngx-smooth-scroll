@@ -72,7 +72,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/ngx-smooth-scroll-demo",
-            "index": "projects/ngx-smooth-scroll-demo/src/app.html",
+            "index": "projects/ngx-smooth-scroll-demo/src/index.html",
             "main": "projects/ngx-smooth-scroll-demo/src/main.ts",
             "polyfills": "projects/ngx-smooth-scroll-demo/src/polyfills.ts",
             "tsConfig": "projects/ngx-smooth-scroll-demo/tsconfig.app.json",
