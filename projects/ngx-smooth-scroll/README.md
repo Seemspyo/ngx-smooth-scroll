@@ -100,6 +100,7 @@ Import `NgxSmoothScrollModule` into your module
 
 ### Concept of design
 `NgxSmoothScrollWheelDirective` and  `NgxSmoothScrollKeyboardDirective` are deisgned for helping full-container-size scrolling while native scroll behaviors remain intact.
+
 If you want to force full-container-size scrolling, I recommend looking for other packages with container style `overflow: hidden`. Since preventing native touch event and scrollbar action are bad for user experiences.
 
 ***NgxSmoothScrollWheelDirective***
@@ -140,8 +141,11 @@ If you want to force full-container-size scrolling, I recommend looking for othe
 new NgxSmoothScroll(containerEl, childSelector);
 ```
 - **containerEl**: HTMLElement `required`
+
     Container element.
+
 - **childSelector**: string
+
     Selector of child element.
 
 #### Property
@@ -149,38 +153,52 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 #### Method
 - **scrollTo**: (destination, options) => Observable<{ x: number; y: number; }>
+
     Scroll to given destination.
     - `destination`: object, `{ x: number; y: number; }`, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **scrollToElement**: (childEl, options) => Observable<{ x: number; y: number; }>
+
     Scroll to  given child element
     - `childEl`: HTMLElement, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **scrollToIndex**: (index, options) => Observable<{ x: number; y: number; }>
+
     Scroll to given child index. childSelector must be set.
     - `index`: number, index of child element, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **interrupt**: () => boolean
+
     Interrupt current scroll animation and stop immediately
 
 ### NgxSmoothScrollService(@Injectable)
 
 #### Method
 - **createInstance**: (containerEl, childSelector) => NgxSmoothScroll
+
     Create NgxSmoothScroll instance.
     - `containerEl`: HTMLElement, `required`
     - `childSelector`: string, selector of child element
+
 - **scrollTo**: (containerEl, destination, options) => Observable<{ x: number; y: number; }>
     Scroll to given destination.
+
     - `containerEl`: HTMLElement, `required`
     - `destination`: object, `{ x: number; y: number; }`, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **scrollToElement**: (containerEl, childEl, options) => Observable<{ x: number; y: number; }>
+
     Scroll to  given child element
     - `containerEl`: HTMLElement, `required`
     - `childEl`: HTMLElement, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **scrollToIndex**: (containerEl, childSelector, index, options) => Observable<{ x: number; y: number; }>
+
     Scroll to given child index. childSelector must be set.
     - `containerEl`: HTMLElement, `required`
     - `childSelector`: string, selector of child element, `required`
@@ -203,22 +221,33 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 #### @Input
 - **childSelector**: string
+
     Selector of child elements.
+
 - **enable**: boolean
+
     Whether enable wheel event binding, default `true`
+
 - **skip**: number
+
     Number of index to skip, default `0`
+
 - **direction**: 'horizontal' | 'vertical'
-    Scroll direction, default `vertical`;
+
+    Scroll direction, default `vertical`
+
 - **options**: NgxSmoothScrollOption
+
     Option for smooth scroll, see more [here](#scroll-option)
 
 #### @Output
 - **beforeAnimate**: NgxSmoothScrollBeforeAnimateEvent
+
     Event triggers before animation started.
     - `currentIndex`: number, current child index(auto-detected by container current view)
     - `targetIndex`: number, child index to scroll into
 - **afterAnimate**: NgxSmoothScrollAfterAnimateEvent
+
     Event triggers after animation ends.
     - `prevIndex`: number, previous child index
     - `currentIndex`: number, current child index
@@ -240,26 +269,40 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 #### @Input
 - **childSelector**: string
+
     Selector of child elements.
+
 - **enable**: boolean
+
     Whether enable wheel event binding, default `true`
+
 - **keyCode**: Map<'normal' | 'reverse', number[]>
+
     Map of key codes, default `'normal': [40, 39, 83, 68], 'reverse': [38, 37, 87, 65]`
     - **normal**: down, right
     - **reverse**: up, left
+
 - **skip**: number
+
     Number of index to skip, default `0`
+
 - **direction**: 'horizontal' | 'vertical'
+
     Scroll direction, default `vertical`;
+
 - **options**: NgxSmoothScrollOption
+
     Option for smooth scroll, see more [here](#scroll-option)
 
 #### @Output
 - **beforeAnimate**: NgxSmoothScrollBeforeAnimateEvent
+
     Event triggers before animation started.
     - `currentIndex`: number, current child index(auto-detected by container current view)
     - `targetIndex`: number, child index to scroll into
+
 - **afterAnimate**: NgxSmoothScrollAfterAnimateEvent
+
     Event triggers after animation ends.
     - `prevIndex`: number, previous child index
     - `currentIndex`: number, current child index
@@ -269,8 +312,11 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 ### NgxSmoothScrollOption
 - **duration**: number
+
     Scroll duration, ms, default `600`
+
 - **timingFunction**: string
+
     Scroll timing function, support cubic-bezier, default `ease`;
     - `linear`
     - `ease`
@@ -278,9 +324,13 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `ease-out`
     - `ease-in-out`
     - `cubic bezier`: ex) '.13, 1.07, .51, 1.29', check more at [cubic-bezier.com](https://cubic-bezier.com/)
+
 - **alignX**: 'start' | 'center' | 'end'
+
     X axis align, default `start`
+
 - **alignY**: 'start' | 'center' | 'end'
+
     Y axis align, default `start`
 
 <a name="issues">
