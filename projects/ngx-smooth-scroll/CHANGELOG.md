@@ -1,3 +1,4 @@
+### 0.2.1-beta add directives to exports
 ### 0.2.0-beta Add interrupt method to directives & Fix bug
 - `NgxSmoothScrollWheelDirective.interrupt`: () => boolean
     - **@return**: boolean, whether behavior interrupted successfully.

@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { bezierArray, NgxSmoothScrollOption, Coords } from '../@types';
 
 /** Custom Modules */
-import { Bezier } from './bezier.helper';
+import { Bezier } from './bezier.core';
 
 
 export class NgxSmoothScroll {

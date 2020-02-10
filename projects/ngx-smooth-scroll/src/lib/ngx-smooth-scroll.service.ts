@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 /** Custom Modules */
-import { NgxSmoothScroll } from './helpers/smooth-scroll.helper';
+import { NgxSmoothScroll } from './core/smooth-scroll.core';
 
 /** Types */
 import { Coords, NgxSmoothScrollOption } from './@types';

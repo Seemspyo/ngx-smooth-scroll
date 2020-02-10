@@ -2,8 +2,8 @@
 import { Directive, Input, AfterViewInit, OnChanges, OnDestroy, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 
 /** Custom Modules */
-import { NgxSmoothScroll } from './helpers/smooth-scroll.helper';
-import { IndexDetector } from './helpers/index-detector.helper';
+import { NgxSmoothScroll } from './core/smooth-scroll.core';
+import { IndexDetector } from './core/index-detector.core';
 
 /** Types */
 import { NgxSmoothScrollOption, NgxSmoothScrollBeforeAnimateEvent, NgxSmoothScrollAfterAnimateEvent } from './@types';

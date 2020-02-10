@@ -2,9 +2,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 /** Custom Modules */
-import { NgxSmoothScrollService, NgxSmoothScrollOption } from 'projects/ngx-smooth-scroll/src/public-api';
-import { NgxSmoothScrollKeyboardDirective } from 'projects/ngx-smooth-scroll/src/lib/ngx-smooth-scroll-keyboard.directive';
-import { NgxSmoothScrollWheelDirective } from 'projects/ngx-smooth-scroll/src/lib/ngx-smooth-scroll-wheel.directive';
+import { NgxSmoothScrollService, NgxSmoothScrollOption, NgxSmoothScrollKeyboardDirective, NgxSmoothScrollWheelDirective } from 'projects/ngx-smooth-scroll/src/public-api';
 
 interface ScrollVariables {
   enabled: boolean;

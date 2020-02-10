@@ -44,12 +44,12 @@ export class Bezier {
         let
         t0: number,
         t1: number,
-        t2: number,
+        t2: number = x,
         x2: number,
         d2: number,
-        i: number
+        i: number = 0;
     
-        for (t2 = x, i = 0; i < 8; i++) {
+        while (i < 8) {
             x2 = this.sampleCurveX(t2) - x;
             if (Math.abs (x2) < this.EPSILON)
                 return t2;
@@ -57,6 +57,8 @@ export class Bezier {
             if (Math.abs(d2) < this.EPSILON)
                 break;
             t2 = t2 - x2 / d2;
+
+            i++;
         }
 
         t0 = 0.0;
