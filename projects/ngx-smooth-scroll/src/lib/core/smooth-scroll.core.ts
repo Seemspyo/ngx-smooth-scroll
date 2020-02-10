@@ -23,7 +23,7 @@ export class NgxSmoothScroll {
         private containerEl: HTMLElement,
         public childSelector?: string
     ) {
-        if (!this.isHTMLElement(containerEl)) throw new TypeError('container element must be an instance of HTMLElment');
+        if (!this.isHTMLElement(containerEl)) throw new TypeError('container element must be an instance of HTMLElement');
     }
 
     public scrollTo(destination: Coords, options: NgxSmoothScrollOption = {}): Observable<Coords> {
@@ -76,7 +76,7 @@ export class NgxSmoothScroll {
     }
 
     public scrollToIndex(index: number, options?: NgxSmoothScrollOption): Observable<Coords> {
-        const child = (this.containerEl.querySelectorAll(this.childSelector)[index] || document.querySelectorAll(this.childSelector)) as HTMLElement;
+        const child = (this.containerEl.querySelectorAll(this.childSelector)[index] || document.querySelectorAll(this.childSelector)[index]) as HTMLElement;
         if (!this.isHTMLElement(child)) throw new TypeError('child must be an instance of HTMLElement');
 
         return this.scrollToElement(child, options);
