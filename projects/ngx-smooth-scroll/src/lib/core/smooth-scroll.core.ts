@@ -17,7 +17,8 @@ export class NgxSmoothScroll {
         [ 'ease-out', '0,0,.58,1' ],
         [ 'ease-in-out', '.42,0,.58,1' ]
     ]);
-    private interrupted: boolean;
+    private frameId: number;
+    private subject: BehaviorSubject<Coords>;
 
     constructor(
         private containerEl: HTMLElement,
@@ -35,9 +36,7 @@ export class NgxSmoothScroll {
 
         let startT: number;
 
-        this.interrupted = false;
-
-        const subject = new BehaviorSubject(initial);
+        this.subject = new BehaviorSubject(initial);
 
         const frame = (timestamp: number) => {
             if (!startT) startT = timestamp;
@@ -46,25 +45,18 @@ export class NgxSmoothScroll {
             t1 = bezier.solve(progress),
             s1 = 1.0 - t1;
 
-            if (!this.interrupted) {
-                if (progress < 1) {
-                    this.scroll({ x: initial.x * s1 + destination.x * t1, y: initial.y * s1 + destination.y * t1 });
-                    window.requestAnimationFrame(frame);
-                } else {
-                    this.scroll(destination);
-                    subject.next(destination);
-                    subject.complete();
-                }
+            if (progress < 1) {
+                this.scroll({ x: initial.x * s1 + destination.x * t1, y: initial.y * s1 + destination.y * t1 });
+                this.frameId = window.requestAnimationFrame(frame);
             } else {
-                subject.next(this.getScrollCoords());
-                subject.complete();
-                this.interrupted = false;
+                this.scroll(destination);
+                this.finishAnimate(destination);
             }
         }
 
-        window.requestAnimationFrame(frame);
+        this.frameId = window.requestAnimationFrame(frame);
 
-        return subject;
+        return this.subject;
     }
 
     public scrollToElement(el: HTMLElement, options?: NgxSmoothScrollOption): Observable<Coords> {
@@ -83,8 +75,22 @@ export class NgxSmoothScroll {
     }
 
     public interrupt(): boolean {
-        if (this.interrupted) return false;
-        return this.interrupted = true;
+        if (this.frameId) {
+            window.cancelAnimationFrame(this.frameId);
+            this.finishAnimate(this.getScrollCoords());
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private finishAnimate(coords: Coords): void {
+        this.subject.next(coords);
+        this.subject.complete();
+
+        this.frameId = null;
+        this.subject = null;
     }
 
     private isHTMLElement(el: any): boolean {

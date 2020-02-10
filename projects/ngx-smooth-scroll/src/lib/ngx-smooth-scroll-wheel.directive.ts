@@ -68,13 +68,7 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
   }
 
   public interrupt(): boolean {
-    if (this.animating) {
-      this.interrupted = true;
-
-      return this.smooth.interrupt();
-    }
-
-    return false;
+    return this.smooth.interrupt();
   }
 
   private init(): void {

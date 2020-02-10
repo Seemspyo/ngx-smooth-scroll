@@ -66,7 +66,7 @@ import { NgxSmoothScrollService } from '@eunsatio/ngx-smooth-scroll';
     @ViewChild('target', { static: false }) targetElRef: ElementRef;
 
     public scrollToTarget() {
-        this.smoothSCroll.scrollToElement(this.containerElRef.nativeElement, this.targetElRef.nativeElement, {
+        this.smoothScroll.scrollToElement(this.containerElRef.nativeElement, this.targetElRef.nativeElement, {
             duration: 600,
             timingFunction: 'ease-in-out'
         });

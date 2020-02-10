@@ -1,4 +1,5 @@
-#### 0.2.2-beta hot fix for childselector
+#### 0.2.3-beta fix interrupt method
+#### 0.2.2-beta hot fix for child selector
 #### 0.2.1-beta Add directives to exports
 #### 0.2.0-beta Add interrupt method to directives & Fix bug
 - `NgxSmoothScrollWheelDirective.interrupt`: () => boolean

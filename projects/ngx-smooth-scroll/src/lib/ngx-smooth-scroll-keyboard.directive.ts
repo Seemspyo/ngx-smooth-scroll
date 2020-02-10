@@ -70,13 +70,7 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
   }
 
   public interrupt(): boolean {
-    if (this.animating) {
-      this.interrupted = true;
-
-      return this.smooth.interrupt();
-    }
-
-    return false;
+    return this.smooth.interrupt();
   }
 
   private init(): void {
