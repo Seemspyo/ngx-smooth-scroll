@@ -88,6 +88,10 @@
           },
           "configurations": {
             "production": {
+              "index": {
+                "input": "projects/ngx-smooth-scroll-demo/src/index.prod.html",
+                "output": "index.html"
+              },
               "fileReplacements": [
                 {
                   "replace": "projects/ngx-smooth-scroll-demo/src/environments/environment.ts",

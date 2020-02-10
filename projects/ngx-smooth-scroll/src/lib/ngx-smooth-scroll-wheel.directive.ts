@@ -29,6 +29,7 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
   private smooth: NgxSmoothScroll;
   private indexDetector: IndexDetector;
   private animating: boolean;
+  private interrupted: boolean;
 
   constructor(
     private containerElRef: ElementRef,
@@ -66,6 +67,16 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
     return this.childSelector && Array.from(this.containerEl.querySelectorAll(this.childSelector));
   }
 
+  public interrupt(): boolean {
+    if (this.animating) {
+      this.interrupted = true;
+
+      return this.smooth.interrupt();
+    }
+
+    return false;
+  }
+
   private init(): void {
     this.events = new Array();
     this.smooth = new NgxSmoothScroll(this.containerEl);
@@ -98,11 +109,16 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
     if (children) {
       const
       direction = Math.sign(event.deltaY),
-      currentIndex = this.currentIndex,
-      index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * (1 + (this.skip || 0)) )));
+      currentIndex = this.detectCurrentIndex();
+      let index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * (1 + (this.skip || 0)) )));
 
       this.beforeAnimate.emit({ currentIndex, targetIndex: index });
       const coords = await this.smooth.scrollToElement(children[index], this.options).toPromise();
+
+      if (this.interrupted) {
+        index = this.detectCurrentIndex();
+        this.interrupted = false;
+      }
       this.afterAnimate.emit({ prevIndex: currentIndex, currentIndex: index, scrollCoords: coords });
 
       this.animating = false;
@@ -113,7 +129,7 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
     return this.direction || 'vertical';
   }
 
-  private get currentIndex(): number {
+  private detectCurrentIndex(): number {
     switch (this.heading) {
       case 'vertical':
         return this.indexDetector.detectY(this.children);

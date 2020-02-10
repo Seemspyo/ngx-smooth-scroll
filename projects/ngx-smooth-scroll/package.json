@@ -1,6 +1,6 @@
 {
   "name": "@eunsatio/ngx-smooth-scroll",
-  "version": "0.1.2-beta",
+  "version": "0.2.0-beta",
   "description": "Simple & configurable & cubic-bezier support smooth scroll for Angular 7+",
   "keywords": [
     "angular",

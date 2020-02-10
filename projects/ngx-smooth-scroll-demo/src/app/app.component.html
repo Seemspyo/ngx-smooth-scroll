@@ -74,6 +74,8 @@
     [direction]="wheel.direction"
     [skip]="wheel.skip"
     [attr.direction]="wheel.direction"
+    (beforeAnimate)="animationState('wheel', true)"
+    (afterAnimate)="animationState('wheel', false)"
   >
     <div class="scroll-content">1</div>
     <div class="scroll-content">2</div>
@@ -116,6 +118,10 @@
         <input matInput type="number" name="wheel-skip" [(ngModel)]="wheel.skip" />
       </mat-form-field>
     </div>
+    <div class="console-box-item">
+      <h4 class="item-title">Interrupt</h4>
+      <button mat-raised-button type="button" (click)="interrupt('wheel')" [disabled]="!wheel.animating" color="primary">Interrupt!</button>
+    </div>
   </form>
 
 </section>
@@ -135,6 +141,8 @@
     [direction]="keyboard.direction"
     [skip]="keyboard.skip"
     [attr.direction]="keyboard.direction"
+    (beforeAnimate)="animationState('keyboard', true)"
+    (afterAnimate)="animationState('keyboard', false)"
   >
     <div class="scroll-content">1</div>
     <div class="scroll-content">2</div>
@@ -176,6 +184,10 @@
       <mat-form-field color="accent">
         <input matInput type="number" name="keyboard-skip" [(ngModel)]="keyboard.skip" />
       </mat-form-field>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">Interrupt</h4>
+      <button mat-raised-button type="button" (click)="interrupt('keyboard')" [disabled]="!keyboard.animating" color="primary">Interrupt!</button>
     </div>
   </form>
 

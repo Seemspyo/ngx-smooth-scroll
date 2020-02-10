@@ -30,6 +30,7 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
   private smooth: NgxSmoothScroll;
   private indexDetector: IndexDetector;
   private animating: boolean;
+  private interrupted: boolean = false;
 
   constructor(
     private containerElRef: ElementRef,
@@ -66,6 +67,16 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
 
   public get children(): Array<HTMLElement> {
     return this.childSelector && Array.from(this.containerEl.querySelectorAll(this.childSelector));
+  }
+
+  public interrupt(): boolean {
+    if (this.animating) {
+      this.interrupted = true;
+
+      return this.smooth.interrupt();
+    }
+
+    return false;
   }
 
   private init(): void {
@@ -117,12 +128,16 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
 
     const children = this.children;
     if (children) {
-      const
-      currentIndex = this.currentIndex,
-      index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * (1 + (this.skip || 0)) )));
+      const currentIndex = this.detectCurrentIndex();
+      let index = Math.max(0, Math.min(children.length - 1, currentIndex + (direction * (1 + (this.skip || 0)) )));
 
       this.beforeAnimate.emit({ currentIndex, targetIndex: index });
       const coords = await this.smooth.scrollToElement(children[index], this.options).toPromise();
+
+      if (this.interrupted) {
+        index = this.detectCurrentIndex();
+        this.interrupted = false;
+      }
       this.afterAnimate.emit({ prevIndex: currentIndex, currentIndex: index, scrollCoords: coords });
 
       this.animating = false;
@@ -132,7 +147,7 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
   private get heading(): 'horizontal' | 'vertical' {
     return this.direction || 'vertical';
   }
-  private get currentIndex(): number {
+  private detectCurrentIndex(): number {
     switch (this.heading) {
       case 'vertical':
         return this.indexDetector.detectY(this.children);

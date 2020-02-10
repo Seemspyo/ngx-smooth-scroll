@@ -4,7 +4,7 @@
 </p>
 
 [![Demo](https://img.shields.io/badge/Demo-online-brightgreen)](https://playground.eunsatio.io/projects/ngx-smooth-scroll-demo/)
-[![Angular](https://img.shields.io/badge/ng-7+-red)](https://angular.io/)
+[![Angular](https://img.shields.io/badge/ng-^7.0.0-red)](https://angular.io/)
 [![License](https://img.shields.io/badge/license-MIT-9cf)](https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll/LICENSE)
 
 Simple, configurable, cubic-bezier support smooth scroll for Angular 7+
@@ -22,13 +22,14 @@ Simple, configurable, cubic-bezier support smooth scroll for Angular 7+
 - [Scroll options](#scroll-option)
 - [Issues](#issues)
 - [Author](#author)
+- [Change Log](https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll/CHANGELOG.md)
 
 <a name="purpose">
 
 ## Purpose
 Javascript Browser APIs has `scrollTo` and `scrollIntoView` method. Which allows us to manipulate browser native scroll behavior easily.
-But some browser does not supports `behavior: smooth` option. Thus, this methods doesn't have options for duration or timing-function. And we have to seek for workaround to know when this scroll ends.
-This package is configurable, compatible, easy to use, and uses `Observable` to notify the subscribers when scroll ends.
+But some browser does not supports `behavior: smooth` option. Thus, this methods doesn't have options for duration or timing-function. And we have to seek for workaround to know when this behavior ends.
+This package is configurable, compatible, easy to use, and uses `Observable` to notify the subscribers when behavior ends.
 
 <a name="feature">
 
@@ -101,7 +102,7 @@ Import `NgxSmoothScrollModule` into your module
 ### Concept of design
 `NgxSmoothScrollWheelDirective` and  `NgxSmoothScrollKeyboardDirective` are deisgned for helping full-container-size scrolling while native scroll behaviors remain intact.
 
-If you want to force full-container-size scrolling, I recommend looking for other packages with container style `overflow: hidden`. Since preventing native touch event and scrollbar action are bad for user experiences.
+If you want to force full-container-size scrolling, I recommend looking for other packages with container style `overflow: hidden`. Since preventing native touch event and scrollbar actions are bad for user experiences.
 
 ***NgxSmoothScrollWheelDirective***
 
@@ -172,7 +173,8 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 - **interrupt**: () => boolean
 
-    Interrupt current scroll animation and stop immediately
+    Interrupt current scroll animation and stop immediately.
+    - **@return**: boolean, whether behavior interrupted successfully.
 
 ### NgxSmoothScrollService(@Injectable)
 
@@ -253,6 +255,12 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `currentIndex`: number, current child index
     - `scrollCoords`: current scroll coordination of container({ x: number; y: number; })
 
+#### Method
+- **interrupt**: () => boolean
+
+    Interrupt current scroll animation and stop immediately.
+    - **@return**: boolean, whether behavior interrupted successfully.
+
 ### NgxSmoothScrollKeyboardDirective(@Directive)
 
 #### Usage
@@ -308,6 +316,12 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `currentIndex`: number, current child index
     - `scrollCoords`: current scroll coordination of container({ x: number; y: number; })
 
+#### Method
+- **interrupt**: () => boolean
+
+    Interrupt current scroll animation and stop immediately.
+    - **@return**: boolean, whether behavior interrupted successfully.
+
 <a name="scroll-option">
 
 ### NgxSmoothScrollOption
@@ -317,7 +331,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 - **timingFunction**: string
 
-    Scroll timing function, support cubic-bezier, default `ease`;
+    Scroll timing function, support cubic-bezier, default `ease`
     - `linear`
     - `ease`
     - `ease-in`

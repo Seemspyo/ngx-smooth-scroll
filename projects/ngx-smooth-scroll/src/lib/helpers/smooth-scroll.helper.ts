@@ -76,14 +76,14 @@ export class NgxSmoothScroll {
     }
 
     public scrollToIndex(index: number, options?: NgxSmoothScrollOption): Observable<Coords> {
-        const child = this.containerEl.querySelectorAll(this.childSelector)[index] as HTMLElement;
+        const child = (this.containerEl.querySelectorAll(this.childSelector)[index] || document.querySelectorAll(this.childSelector)) as HTMLElement;
         if (!this.isHTMLElement(child)) throw new TypeError('child must be an instance of HTMLElement');
 
         return this.scrollToElement(child, options);
     }
 
     public interrupt(): boolean {
-        if (!this.interrupted) return false;
+        if (this.interrupted) return false;
         return this.interrupted = true;
     }
 
