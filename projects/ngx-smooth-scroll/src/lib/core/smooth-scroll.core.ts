@@ -33,7 +33,6 @@ export class NgxSmoothScroll {
         bezier = new Bezier(...this.parseTimingFunction(options.timingFunction || 'ease'));
 
         const initial = this.getScrollCoords();
-
         let startT: number;
 
         this.subject = new BehaviorSubject(initial);

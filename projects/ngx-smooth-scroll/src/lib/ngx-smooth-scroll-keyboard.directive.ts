@@ -1,12 +1,13 @@
 /** Native Modules */
 import { Directive, AfterViewInit, OnChanges, OnDestroy, Input, SimpleChanges, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 
 /** Custom Modules */
 import { NgxSmoothScroll } from './core/smooth-scroll.core';
 import { IndexDetector } from './core/index-detector.core';
 
 /** Types */
-import { NgxSmoothScrollOption, NgxSmoothScrollKeyCodeMap, NgxSmoothScrollBeforeAnimateEvent, NgxSmoothScrollAfterAnimateEvent } from './@types';
+import { NgxSmoothScrollOption, NgxSmoothScrollKeyCodeMap, NgxSmoothScrollBeforeAnimateEvent, NgxSmoothScrollAfterAnimateEvent, Coords } from './@types';
 
 
 @Directive({
@@ -71,6 +72,18 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
 
   public interrupt(): boolean {
     return this.smooth.interrupt();
+  }
+
+  public scrollTo(destination: Coords, options?: NgxSmoothScrollOption): Observable<Coords> {
+    return this.smooth.scrollTo(destination, options);
+  }
+
+  public scrollToChild(childEl: HTMLElement, options?: NgxSmoothScrollOption): Observable<Coords> {
+    return this.smooth.scrollToElement(childEl, options);
+  }
+
+  public scrollToIndex(index: number, options?: NgxSmoothScrollOption): Observable<Coords> {
+    return this.smooth.scrollToIndex(index, options);
   }
 
   private init(): void {

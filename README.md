@@ -28,7 +28,7 @@ Simple, configurable, cubic-bezier support smooth scroll for Angular 7+
 
 ## Purpose
 Javascript Browser APIs has `scrollTo` and `scrollIntoView` method. Which allows us to manipulate browser native scroll behavior easily.
-But some browser does not supports `behavior: smooth` option. Thus, this methods doesn't have options for duration or timing-function. And we have to seek for workaround to know when this behavior ends.
+But some browser does not supports `behavior: smooth` option. Thus, this methods doesn't have options for duration nor timing-function. And we have to seek for workaround to know when this behavior ends.
 This package is configurable, compatible, easy to use, and uses `Observable` to notify the subscribers when behavior ends.
 
 <a name="feature">
@@ -66,7 +66,7 @@ import { NgxSmoothScrollService } from '@eunsatio/ngx-smooth-scroll';
     @ViewChild('target', { static: false }) targetElRef: ElementRef;
 
     public scrollToTarget() {
-        this.smoothSCroll.scrollToElement(this.containerElRef.nativeElement, this.targetElRef.nativeElement, {
+        this.smoothScroll.scrollToElement(this.containerElRef.nativeElement, this.targetElRef.nativeElement, {
             duration: 600,
             timingFunction: 'ease-in-out'
         });
@@ -186,6 +186,7 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `childSelector`: string, selector of child element
 
 - **scrollTo**: (containerEl, destination, options) => Observable<{ x: number; y: number; }>
+
     Scroll to given destination.
 
     - `containerEl`: HTMLElement, `required`
