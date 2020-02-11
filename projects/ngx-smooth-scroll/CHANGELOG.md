@@ -1,3 +1,6 @@
+#### 0.3.1-beta fix wrong documentation
+- **childSelector**: not `childSelector` should use `child-selector`
+
 #### 0.3.0-beta Add methods & properties to each directive
 - `NgxSmoothScrollWheelDirective.containerEl`: HTMLElement, container element.
 - `NgxSmoothScrollWheelDirective.children`: HTMLElement[], pure array of child elements.

@@ -38,6 +38,7 @@ export class NgxSmoothScrollWheelDirective implements AfterViewInit, OnChanges, 
   ) {}
 
   ngAfterViewInit() {
+    if (typeof this.enable !== 'boolean') this.enable = true;
     if (this.enable && !this.enabled) this.init();
   }
 

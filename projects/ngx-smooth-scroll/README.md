@@ -109,7 +109,7 @@ If you want to force full-container-size scrolling, I recommend looking for othe
 ```html
 <div class="container" ngxSmoothScrollWheel
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -123,7 +123,7 @@ If you want to force full-container-size scrolling, I recommend looking for othe
 <div class="container" ngxSmoothScrollKeyboard
     [options]="smoothScrollOption"
     [keyCode]="keyCodeMap"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -238,7 +238,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 ```html
 <div class="container" ngxSmoothScrollWheel
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -251,7 +251,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 - **children**: Pure array of child element. **NOT** NodeList nor HTMLCollection.
 
 #### @Input
-- **childSelector**: string
+- **child-selector**: string
 
     Selector of child elements.
 
@@ -314,7 +314,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 ```html
 <div class="container" ngxSmoothScrollKeyboard
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -327,7 +327,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 - **children**: Pure array of child element. **NOT** NodeList nor HTMLCollection.
 
 #### @Input
-- **childSelector**: string
+- **child-selector**: string
 
     Selector of child elements.
 

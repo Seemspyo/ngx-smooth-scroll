@@ -18,8 +18,8 @@ Simple, configurable, cubic-bezier support smooth scroll for Angular 7+
 - [Installation](#installation)
 - [Direct usage](#direct-usage)
 - [Use with directive](#use-with-directive)
-- [Documentation](#documentation)
 - [Scroll options](#scroll-option)
+- [Documentation](#documentation)
 - [Issues](#issues)
 - [Author](#author)
 - [Change Log](https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll/CHANGELOG.md)
@@ -109,7 +109,7 @@ If you want to force full-container-size scrolling, I recommend looking for othe
 ```html
 <div class="container" ngxSmoothScrollWheel
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -123,13 +123,38 @@ If you want to force full-container-size scrolling, I recommend looking for othe
 <div class="container" ngxSmoothScrollKeyboard
     [options]="smoothScrollOption"
     [keyCode]="keyCodeMap"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
     <!---->
 </div>
 ```
+
+<a name="scroll-option">
+
+### NgxSmoothScrollOption
+- **duration**: number
+
+    Scroll duration, ms, default `600`
+
+- **timingFunction**: string
+
+    Scroll timing function, support cubic-bezier, default `ease`
+    - `linear`
+    - `ease`
+    - `ease-in`
+    - `ease-out`
+    - `ease-in-out`
+    - `cubic bezier`: ex) '.13, 1.07, .51, 1.29', check more at [cubic-bezier.com](https://cubic-bezier.com/)
+
+- **alignX**: 'start' | 'center' | 'end'
+
+    X axis align, default `start`
+
+- **alignY**: 'start' | 'center' | 'end'
+
+    Y axis align, default `start`
 
 <a name="documentation">
 
@@ -188,7 +213,6 @@ new NgxSmoothScroll(containerEl, childSelector);
 - **scrollTo**: (containerEl, destination, options) => Observable<{ x: number; y: number; }>
 
     Scroll to given destination.
-
     - `containerEl`: HTMLElement, `required`
     - `destination`: object, `{ x: number; y: number; }`, `required`
     - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
@@ -214,7 +238,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 ```html
 <div class="container" ngxSmoothScrollWheel
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -222,8 +246,12 @@ new NgxSmoothScroll(containerEl, childSelector);
 </div>
 ```
 
+#### Property
+- **containerEl**: Container Element.
+- **children**: Pure array of child element. **NOT** NodeList nor HTMLCollection.
+
 #### @Input
-- **childSelector**: string
+- **child-selector**: string
 
     Selector of child elements.
 
@@ -257,6 +285,24 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `scrollCoords`: current scroll coordination of container({ x: number; y: number; })
 
 #### Method
+- **scrollTo**: (destination, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to given destination.
+    - `destination`: object, `{ x: number; y: number; }`, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
+- **scrollToChild**: (childEl, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to  given child element
+    - `childEl`: HTMLElement, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
+- **scrollToIndex**: (index, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to given child index. childSelector must be set.
+    - `index`: number, index of child element, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **interrupt**: () => boolean
 
     Interrupt current scroll animation and stop immediately.
@@ -268,7 +314,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 ```html
 <div class="container" ngxSmoothScrollKeyboard
     [options]="smoothScrollOption"
-    childSelector=".content"
+    child-selector=".content"
 >
     <!---->
     <div class="content"></div>
@@ -276,8 +322,12 @@ new NgxSmoothScroll(containerEl, childSelector);
 </div>
 ```
 
+#### Property
+- **containerEl**: Container Element.
+- **children**: Pure array of child element. **NOT** NodeList nor HTMLCollection.
+
 #### @Input
-- **childSelector**: string
+- **child-selector**: string
 
     Selector of child elements.
 
@@ -318,35 +368,28 @@ new NgxSmoothScroll(containerEl, childSelector);
     - `scrollCoords`: current scroll coordination of container({ x: number; y: number; })
 
 #### Method
+- **scrollTo**: (destination, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to given destination.
+    - `destination`: object, `{ x: number; y: number; }`, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
+- **scrollToChild**: (childEl, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to  given child element
+    - `childEl`: HTMLElement, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
+- **scrollToIndex**: (index, options) => Observable<{ x: number; y: number; }>
+
+    Scroll to given child index. childSelector must be set.
+    - `index`: number, index of child element, `required`
+    - `options`: NgxSmoothScrollOption, see more [here](#scroll-option)
+
 - **interrupt**: () => boolean
 
     Interrupt current scroll animation and stop immediately.
     - **@return**: boolean, whether behavior interrupted successfully.
-
-<a name="scroll-option">
-
-### NgxSmoothScrollOption
-- **duration**: number
-
-    Scroll duration, ms, default `600`
-
-- **timingFunction**: string
-
-    Scroll timing function, support cubic-bezier, default `ease`
-    - `linear`
-    - `ease`
-    - `ease-in`
-    - `ease-out`
-    - `ease-in-out`
-    - `cubic bezier`: ex) '.13, 1.07, .51, 1.29', check more at [cubic-bezier.com](https://cubic-bezier.com/)
-
-- **alignX**: 'start' | 'center' | 'end'
-
-    X axis align, default `start`
-
-- **alignY**: 'start' | 'center' | 'end'
-
-    Y axis align, default `start`
 
 <a name="issues">
 
