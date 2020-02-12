@@ -154,6 +154,7 @@ export class NgxSmoothScrollKeyboardDirective implements AfterViewInit, OnChange
   private get heading(): 'horizontal' | 'vertical' {
     return this.direction || 'vertical';
   }
+
   private detectCurrentIndex(): number {
     switch (this.heading) {
       case 'vertical':
