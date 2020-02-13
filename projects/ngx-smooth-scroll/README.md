@@ -125,7 +125,7 @@ public scrollToTarget() {
 #### @Input
 - **ngxSmoothScroll**: `NgxSmoothScrollDirectiveOption` `optional`
 
-    Scroll option object. Can specify options for each event. See more at [here](#scroll-options).
+    Scroll option object. Can specify options for each event. [see more](#scroll-options)
 
 - **childSelector**: `string` `optional`
 
@@ -240,6 +240,7 @@ public scrollToTarget() {
     Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `afterAnimate` or `Observable` to catch actual animation ends).
     - **@return**: `boolean`, whether interruption successful.
 
+---
 
 ### NgxSmoothScroll(class)
 
@@ -257,8 +258,8 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 #### Properties
 - **containerEl**: `HTMLElement`, native container element. `readonly`
-- **childSelector**: `string`, selector of child element, [see more](#scroll-options).
-- **defaultOption**: `NgxSmoothScrollOption`, default option object. `readonly`
+- **childSelector**: `string`, selector of child element.
+- **defaultOption**: `NgxSmoothScrollOption`, default option object, [see more](#scroll-options). `readonly`
 
 #### Methods
 - **scrollTo**: `(destination, options) => Observable<{ x: number; y: number; }>`
@@ -284,9 +285,11 @@ new NgxSmoothScroll(containerEl, childSelector);
     Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `afterAnimate` or `Observable` to catch actual animation ends).
     - **@return**: `boolean`, whether interruption successful.
 
+---
+
 ### NgxSmoothScrollService(@Injectable)
 
-A simple wrapper for `NgxSmoothScroll`.
+    A simple wrapper for `NgxSmoothScroll`.
 
 #### Methods
 - **createInstance**: `(contaierEl, childSelector) => NgxSmoothScroll`
@@ -317,6 +320,7 @@ A simple wrapper for `NgxSmoothScroll`.
     - `index`: `number`, target index, `required`
     - `options`: `NgxSmoothScrollOption`, scroll options, [see more](#scroll-options), `optional`
 
+---
 
 <a name="scroll-options">
 
@@ -347,7 +351,7 @@ A simple wrapper for `NgxSmoothScroll`.
     Y axis alignment.
     - **@default**: `'start'`
 
-- **stopOnArrival*: `boolean`
+- **stopOnArrival**: `boolean`
 
     Whether stop scroll animation on arrival.
     - **@default**: `false`
