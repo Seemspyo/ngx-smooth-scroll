@@ -4,7 +4,7 @@
 </p>
 
 [![Demo](https://img.shields.io/badge/Demo-online-brightgreen)](https://playground.eunsatio.io/projects/ngx-smooth-scroll-demo/)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/Seemspyo/ngx-smooth-scroll/)
+[![Version](https://img.shields.io/badge/version-1.0.2-blue)](https://github.com/Seemspyo/ngx-smooth-scroll/)
 [![Angular](https://img.shields.io/badge/ng-^7.0.0-red)](https://angular.io/)
 [![License](https://img.shields.io/badge/license-MIT-9cf)](https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll/LICENSE)
 

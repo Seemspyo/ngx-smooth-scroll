@@ -1,3 +1,6 @@
+#### 1.0.2 more specific error message
+#### 1.0.1 downgrade to typescript@3.6.5
+
 ### 1.0.0
 - **@Deprecated**: `NgxSmoothScrollWheelDirective`
 - **@Deprecated**: `NgxSmoothScrollKeyboardDirective`

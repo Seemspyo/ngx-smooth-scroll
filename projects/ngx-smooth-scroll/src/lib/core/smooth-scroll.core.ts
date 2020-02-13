@@ -201,8 +201,8 @@ export class NgxSmoothScroll {
     private getNativeElement(el: any): HTMLElement {
         if (el instanceof ElementRef) return el.nativeElement;
         if (el instanceof HTMLElement) return el;
-        
-        throw new TypeError('received paramter is not an instance of HTMLElement nor ElementRef');
+
+        throw new TypeError(`received paramter ${ el } is not an instance of HTMLElement nor ElementRef`);
     }
 
     private isOverstepped(progress: Coords, destination: Coords, direction: Coords): boolean {
