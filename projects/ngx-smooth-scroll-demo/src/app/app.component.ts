@@ -2,14 +2,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 /** Custom Modules */
-import { NgxSmoothScrollService, NgxSmoothScrollOption, NgxSmoothScrollKeyboardDirective, NgxSmoothScrollWheelDirective } from 'projects/ngx-smooth-scroll/src/public-api';
+import { NgxSmoothScrollService, NgxSmoothScrollOption, NgxSmoothScrollDirective, NgxSmoothScrollDirectiveOption } from 'projects/ngx-smooth-scroll/src/public-api';
 
-interface ScrollVariables {
-  enabled: boolean;
-  options: NgxSmoothScrollOption;
-  direction: 'vertical' | 'horizontal';
-  skip: number;
+interface ScrollProperty {
   [key: string]: any;
+  options: NgxSmoothScrollOption | NgxSmoothScrollDirectiveOption;
 }
 
 
@@ -20,41 +17,37 @@ interface ScrollVariables {
 })
 export class AppComponent {
 
-  public basic: { nth: number; options: NgxSmoothScrollOption } = {
+  public basic: ScrollProperty = {
     nth: 2,
     options: {
       duration: 700,
       timingFunction: '.13, 1.07, .51, 1.29',
       alignX: 'center',
-      alignY: 'center'
+      alignY: 'center',
+      stopOnArrival: false
     }
   }
 
-  public wheel: ScrollVariables = {
-    enabled: true,
+  public directive: ScrollProperty = {
+    wheel: true,
+    keydown: true,
+    mouse: !('ontouchstart' in window),
+    touch: 'ontouchstart' in window,
     options: {
       duration: 500,
-      timingFunction: 'ease'
+      timingFunction: 'ease',
+      stopOnArrival: true
     },
-    direction: 'vertical',
+    detectDirection: 'vertical',
+    actionDirection: 'vertical',
     skip: 0,
+    autoDetect: true,
+    autoInterruption: false,
     animating: false
   }
 
-  public keyboard: ScrollVariables = {
-    enabled: true,
-    options: {
-      duration: 500,
-      timingFunction: 'ease'
-    },
-    direction: 'vertical',
-    skip: 0,
-    animating: false
-  }
-
-  @ViewChild('basicScroll', { static: false }) basicScrollElRef: ElementRef;
-  @ViewChild(NgxSmoothScrollKeyboardDirective, { static: false }) keyboardDirectiveRef: NgxSmoothScrollKeyboardDirective;
-  @ViewChild(NgxSmoothScrollWheelDirective, { static: false }) wheelDirectiveRef: NgxSmoothScrollWheelDirective;
+  @ViewChild('basicScroll') basicScrollElRef: ElementRef;
+  @ViewChild(NgxSmoothScrollDirective) smoothScrollDirective: NgxSmoothScrollDirective;
 
   constructor(
     private smoothScroll: NgxSmoothScrollService
@@ -70,19 +63,12 @@ export class AppComponent {
     return `${ Math.floor(duration / 100) / 10 }s`;
   }
 
-  public animationState(type: string, value: boolean): void {
-    this[type].animating = value;
+  public animationState(value: boolean): void {
+    this.directive.animating = value;
   }
 
-  public interrupt(type: string): void {
-    switch (type) {
-      case 'keyboard':
-        this.keyboardDirectiveRef.interrupt();
-        break;
-      case 'wheel':
-        this.wheelDirectiveRef.interrupt();
-        break;
-    }
+  public interrupt(): void {
+    this.smoothScrollDirective.interrupt();
   }
 
 }

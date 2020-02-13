@@ -15,7 +15,12 @@
             "tsConfig": "projects/ngx-smooth-scroll/tsconfig.lib.json",
             "project": "projects/ngx-smooth-scroll/ng-package.json"
           }
-        },
+        ,          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-smooth-scroll/tsconfig.lib.prod.json"
+            }
+          }
+},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -76,7 +81,7 @@
             "main": "projects/ngx-smooth-scroll-demo/src/main.ts",
             "polyfills": "projects/ngx-smooth-scroll-demo/src/polyfills.ts",
             "tsConfig": "projects/ngx-smooth-scroll-demo/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/ngx-smooth-scroll-demo/src/favicon.ico",
               "projects/ngx-smooth-scroll-demo/src/assets"
@@ -103,7 +108,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": false,
               "vendorChunk": false,
               "buildOptimizer": true,

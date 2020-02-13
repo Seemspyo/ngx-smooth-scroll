@@ -1,3 +1,10 @@
+### 1.0.0
+- **@Deprecated**: `NgxSmoothScrollWheelDirective`
+- **@Deprecated**: `NgxSmoothScrollKeyboardDirective`
+- **Change**: `child-selector` -> `childSelector`
+
+Check new feature at [Documentaion](https://github.com/Seemspyo/ngx-smooth-scroll)
+
 #### 0.3.1-beta fix wrong documentation
 - **childSelector**: not `childSelector` should use `child-selector`
 

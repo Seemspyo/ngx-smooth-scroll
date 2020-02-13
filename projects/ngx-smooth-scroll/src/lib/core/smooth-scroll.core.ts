@@ -1,4 +1,5 @@
 /** Native Modules */
+import { ElementRef } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 /** Types */
@@ -6,6 +7,7 @@ import { bezierArray, NgxSmoothScrollOption, Coords } from '../@types';
 
 /** Custom Modules */
 import { Bezier } from './bezier.core';
+import { CoordsDetector } from './coords-detector.core';
 
 
 export class NgxSmoothScroll {
@@ -17,22 +19,47 @@ export class NgxSmoothScroll {
         [ 'ease-out', '0,0,.58,1' ],
         [ 'ease-in-out', '.42,0,.58,1' ]
     ]);
+
+    private coordsDetector: CoordsDetector;
+
     private frameId: number;
     private subject: BehaviorSubject<Coords>;
 
+    public get defaultOption(): NgxSmoothScrollOption {
+      return {
+        duration: 600,
+        timingFunction: 'ease',
+        alignX: 'start',
+        alignY: 'start',
+        stopOnArrival: false
+      }
+    }
+
     constructor(
-        private containerEl: HTMLElement,
+        private _containerEl: HTMLElement | ElementRef,
         public childSelector?: string
     ) {
-        if (!this.isHTMLElement(containerEl)) throw new TypeError('container element must be an instance of HTMLElement');
+        try {
+            this.coordsDetector = new CoordsDetector(this.getNativeElement(_containerEl));
+        } catch (error) {
+            throw new TypeError('container element must be an instance of HTMLElement or ElementRef');
+        }
+    }
+
+    public get containerEl(): HTMLElement {
+        return this.getNativeElement(this._containerEl);
     }
 
     public scrollTo(destination: Coords, options: NgxSmoothScrollOption = {}): Observable<Coords> {
         const
-        duration = typeof options.duration === 'number' ? options.duration : 600,
-        bezier = new Bezier(...this.parseTimingFunction(options.timingFunction || 'ease'));
+        defaultOption = this.defaultOption,
+        duration = typeof options.duration === 'number' ? options.duration : defaultOption.duration,
+        bezier = new Bezier(...this.parseTimingFunction(options.timingFunction || defaultOption.timingFunction)),
+        stopOnArrival = typeof options.stopOnArrival === 'boolean' ? options.stopOnArrival : defaultOption.stopOnArrival;
 
         const initial = this.getScrollCoords();
+        destination = Object.assign({ x: 0, y: 0 }, destination);
+
         let startT: number;
 
         this.subject = new BehaviorSubject(initial);
@@ -44,9 +71,23 @@ export class NgxSmoothScroll {
             t1 = bezier.solve(progress),
             s1 = 1.0 - t1;
 
+            const direction: Coords = {
+                x: Math.sign(destination.x - initial.x),
+                y: Math.sign(destination.y - initial.y)
+            }
+
             if (progress < 1) {
-                this.scroll({ x: initial.x * s1 + destination.x * t1, y: initial.y * s1 + destination.y * t1 });
-                this.frameId = window.requestAnimationFrame(frame);
+                const
+                x = initial.x * s1 + destination.x * t1,
+                y = initial.y * s1 + destination.y * t1;
+
+                if (stopOnArrival && this.isOverstepped({ x, y }, destination, direction)) {
+                    this.scroll(destination);
+                    this.finishAnimate(destination);
+                } else {
+                    this.scroll({ x, y });
+                    this.frameId = window.requestAnimationFrame(frame);
+                }
             } else {
                 this.scroll(destination);
                 this.finishAnimate(destination);
@@ -58,17 +99,14 @@ export class NgxSmoothScroll {
         return this.subject;
     }
 
-    public scrollToElement(el: HTMLElement, options?: NgxSmoothScrollOption): Observable<Coords> {
-        if (!this.isHTMLElement(el)) throw new TypeError('first paramter must be an instance of HTMLElement');
-
-        const destination = this.getDestinationCoords(el, options);
+    public scrollToElement(el: HTMLElement | ElementRef, options?: NgxSmoothScrollOption): Observable<Coords> {
+        const destination = this.getDestinationCoords(this.getNativeElement(el), options);
 
         return this.scrollTo(destination, options);
     }
 
-    public scrollToIndex(index: number, options?: NgxSmoothScrollOption): Observable<Coords> {
-        const child = (this.containerEl.querySelectorAll(this.childSelector)[index] || document.querySelectorAll(this.childSelector)[index]) as HTMLElement;
-        if (!this.isHTMLElement(child)) throw new TypeError('child must be an instance of HTMLElement');
+    public scrollToIndex(index: number, options?: NgxSmoothScrollOption, doc?: Document): Observable<Coords> {
+        const child = (this.containerEl.querySelectorAll(this.childSelector)[index] || (doc || document).querySelectorAll(this.childSelector)[index]) as HTMLElement;
 
         return this.scrollToElement(child, options);
     }
@@ -85,15 +123,13 @@ export class NgxSmoothScroll {
     }
 
     private finishAnimate(coords: Coords): void {
-        this.subject.next(coords);
-        this.subject.complete();
+        if (this.subject) {
+            this.subject.next(coords);
+            this.subject.complete();
+        }
 
         this.frameId = null;
         this.subject = null;
-    }
-
-    private isHTMLElement(el: any): boolean {
-        return el instanceof HTMLElement;
     }
 
     private parseTimingFunction(timingFunction: string): bezierArray {
@@ -122,15 +158,15 @@ export class NgxSmoothScroll {
         return { x: this.containerEl.scrollLeft, y: this.containerEl.scrollTop }
     }
 
-    private getDestinationCoords(el: HTMLElement, options: NgxSmoothScrollOption = {}): Coords {
+    private getDestinationCoords(childEl: HTMLElement, options: NgxSmoothScrollOption = {}): Coords {
         const
-        alignX = options.alignX || 'start',
-        alignY = options.alignY || 'start';
+        defaultOption = this.defaultOption,
+        alignX = options.alignX || defaultOption.alignX,
+        alignY = options.alignY || defaultOption.alignY;
 
-        const isContainerStatic = window.getComputedStyle(this.containerEl).getPropertyValue('position') === 'static';
-        let { offsetTop, offsetLeft, clientWidth, clientHeight } = this.containerEl;
-
-        if (!isContainerStatic) offsetTop = offsetLeft = 0;
+        const
+        position = this.coordsDetector.getAbsoluteCoords(this.containerEl, childEl),
+        { clientWidth, clientHeight } = this.containerEl;
 
         let
         x: number,
@@ -138,28 +174,39 @@ export class NgxSmoothScroll {
 
         switch (alignX) {
             case 'start':
-                x = el.offsetLeft - offsetLeft;
+                x = position.x;
                 break;
             case 'center':
-                x = el.offsetLeft - offsetLeft + (el.offsetWidth - clientWidth) / 2;
+                x = position.x + (childEl.offsetWidth - clientWidth) / 2;
                 break;
             case 'end':
-                x = el.offsetLeft - offsetLeft + el.offsetWidth - clientWidth;
+                x = position.x + childEl.offsetWidth - clientWidth;
         }
 
         switch (alignY) {
             case 'start':
-                y = el.offsetTop - offsetTop;
+                y = position.y;
                 break;
             case 'center':
-                y = el.offsetTop - offsetTop + (el.offsetHeight - clientHeight) / 2;
+                y = position.y + (childEl.offsetHeight - clientHeight) / 2;
                 break;
             case 'end':
-                y = el.offsetTop - offsetTop + el.offsetHeight - clientHeight;
+                y = position.y + childEl.offsetHeight - clientHeight;
                 break;
         }
 
         return { x, y }
+    }
+
+    private getNativeElement(el: any): HTMLElement {
+        if (el instanceof ElementRef) return el.nativeElement;
+        if (el instanceof HTMLElement) return el;
+        
+        throw new TypeError('received paramter is not an instance of HTMLElement nor ElementRef');
+    }
+
+    private isOverstepped(progress: Coords, destination: Coords, direction: Coords): boolean {
+        return ['x', 'y'].every(key => progress[key] * direction[key] >= destination[key] * direction[key]);
     }
 
 }

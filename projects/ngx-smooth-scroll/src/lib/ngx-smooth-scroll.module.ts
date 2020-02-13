@@ -2,18 +2,15 @@
 import { NgModule } from '@angular/core';
 
 /** Directives */
-import { NgxSmoothScrollWheelDirective } from './ngx-smooth-scroll-wheel.directive';
-import { NgxSmoothScrollKeyboardDirective } from './ngx-smooth-scroll-keyboard.directive';
+import { NgxSmoothScrollDirective } from './ngx-smooth-scroll.directive';
 
 
 @NgModule({
   declarations: [
-    NgxSmoothScrollWheelDirective,
-    NgxSmoothScrollKeyboardDirective
+    NgxSmoothScrollDirective
   ],
   exports: [
-    NgxSmoothScrollWheelDirective,
-    NgxSmoothScrollKeyboardDirective
+    NgxSmoothScrollDirective
   ]
 })
 export class NgxSmoothScrollModule { }

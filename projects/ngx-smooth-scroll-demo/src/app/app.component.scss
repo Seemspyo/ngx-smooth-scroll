@@ -29,15 +29,21 @@ header.section-header {
 .scroll-container {
     width: 340px; height: 340px;
     overflow: auto;
-    display: flex;
+    display: block;
     max-width: 100%;
 
-    &[direction=vertical] {
-        flex-direction: column;
-    }
+    .scroll-wrapper {
+        width: 100%; height: 100%;
+        display: flex;
 
-    &[direction=horizontal] {
-        flex-direction: row;
+        &[direction=vertical] {
+            flex-direction: column;
+        }
+    
+        &[direction=horizontal] {
+            flex-direction: row;
+        }
+
     }
 
     .scroll-content {
@@ -102,7 +108,7 @@ header.section-header {
         left-radius: 12px;
         right-radius: 12px;
     }
-    box-shadow: 0 0 10px rgba(0,0,0,.4);
+    box-shadow: 0 0 10px rgba(#000,.4);
 
     mat-form-field {
         width: 40%;

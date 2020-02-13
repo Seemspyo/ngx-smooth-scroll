@@ -55,72 +55,9 @@
         </select>
       </mat-form-field>
     </div>
-  </form>
-
-</section>
-
-
-<section class="demo-section">
-
-  <header class="section-header">
-    <h3 class="section-header-title">Wheel event directive</h3>
-  </header>
-
-  <div class="scroll-container"
-    ngxSmoothScrollWheel
-    child-selector=".scroll-content"
-    [enable]="wheel.enabled"
-    [options]="wheel.options"
-    [direction]="wheel.direction"
-    [skip]="wheel.skip"
-    [attr.direction]="wheel.direction"
-    (beforeAnimate)="animationState('wheel', true)"
-    (afterAnimate)="animationState('wheel', false)"
-  >
-    <div class="scroll-content">1</div>
-    <div class="scroll-content">2</div>
-    <div class="scroll-content">3</div>
-    <div class="scroll-content">4</div>
-    <div class="scroll-content">5</div>
-    <div class="scroll-content">6</div>
-    <div class="scroll-content">7</div>
-    <div class="scroll-content">8</div>
-    <div class="scroll-content">9</div>
-  </div>
-
-  <form class="console-box">
     <div class="console-box-item">
-      <h4 class="item-title">enable</h4>
-      <mat-slide-toggle name="wheel-enable" [(ngModel)]="wheel.enabled"></mat-slide-toggle>
-    </div>
-    <div class="console-box-item">
-      <h4 class="item-title">duration</h4>
-      <mat-slider name="wheel-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="wheel.options.duration" [displayWith]="durationLabel"></mat-slider>
-    </div>
-    <div class="console-box-item">
-      <h4 class="item-title">timing-function</h4>
-      <mat-form-field color="accent">
-        <input matInput type="text" name="wheel-timing-function" [(ngModel)]="wheel.options.timingFunction" />
-      </mat-form-field>
-    </div>
-    <div class="console-box-item">
-      <h4 class="item-title">direction</h4>
-      <mat-form-field color="accent">
-        <select matNativeControl name="wheel-direction" [(ngModel)]="wheel.direction">
-          <option value="horizontal">horizontal</option>
-          <option value="vertical">vertical</option>
-        </select>
-      </mat-form-field>
-    </div>
-    <div class="console-box-item">
-      <h4 class="item-title">skip</h4>
-      <mat-form-field color="accent">
-        <input matInput type="number" name="wheel-skip" [(ngModel)]="wheel.skip" />
-      </mat-form-field>
-    </div>
-    <div class="console-box-item">
-      <h4 class="item-title">Interrupt</h4>
-      <button mat-raised-button type="button" (click)="interrupt('wheel')" [disabled]="!wheel.animating" color="primary">Interrupt!</button>
+      <h4 class="item-title">stop on arrival</h4>
+      <mat-slide-toggle name="basic-arrival" [(ngModel)]="basic.options.stopOnArrival"></mat-slide-toggle>
     </div>
   </form>
 
@@ -130,50 +67,82 @@
 <section class="demo-section">
 
   <header class="section-header">
-    <h3 class="section-header-title">Keyboard event directive</h3>
+    <h3 class="section-header-title">Directive usage</h3>
   </header>
 
   <div class="scroll-container"
-    ngxSmoothScrollKeyboard
-    child-selector=".scroll-content"
-    [enable]="keyboard.enabled"
-    [options]="keyboard.options"
-    [direction]="keyboard.direction"
-    [skip]="keyboard.skip"
-    [attr.direction]="keyboard.direction"
-    (beforeAnimate)="animationState('keyboard', true)"
-    (afterAnimate)="animationState('keyboard', false)"
+    [ngxSmoothScroll]="directive.options"
+    childSelector=".scroll-content"
+    [autoDetectDirection]="directive.detectDirection"
+    [actionDirection]="directive.actionDirection"
+    [skip]="directive.skip"
+    [smooth-wheel]="directive.wheel"
+    [smooth-keydown]="directive.keydown"
+    [smooth-mouse]="directive.mouse && wrapper"
+    [smooth-touch]="directive.touch"
+    [autoDetect]="directive.autoDetect"
+    [autoInterruption]="directive.autoInterruption"
+    (beforeAnimate)="animationState(true)"
+    (afterAnimate)="animationState(false)"
   >
-    <div class="scroll-content">1</div>
-    <div class="scroll-content">2</div>
-    <div class="scroll-content">3</div>
-    <div class="scroll-content">4</div>
-    <div class="scroll-content">5</div>
-    <div class="scroll-content">6</div>
-    <div class="scroll-content">7</div>
-    <div class="scroll-content">8</div>
-    <div class="scroll-content">9</div>
+    <div class="scroll-wrapper" #wrapper [attr.direction]="directive.detectDirection">
+      <div class="scroll-content">1</div>
+      <div class="scroll-content">2</div>
+      <div class="scroll-content">3</div>
+      <div class="scroll-content">4</div>
+      <div class="scroll-content">5</div>
+      <div class="scroll-content">6</div>
+      <div class="scroll-content">7</div>
+      <div class="scroll-content">8</div>
+      <div class="scroll-content">9</div>
+    </div>
   </div>
 
   <form class="console-box">
     <div class="console-box-item">
-      <h4 class="item-title">enable</h4>
-      <mat-slide-toggle name="keyboard-enable" [(ngModel)]="keyboard.enabled"></mat-slide-toggle>
+      <h4 class="item-title">Interrupt</h4>
+      <button mat-raised-button type="button" (click)="interrupt()" [disabled]="!directive.animating" color="primary">Interrupt!</button>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">[bind] wheel</h4>
+      <mat-slide-toggle name="directive-wheel" [(ngModel)]="directive.wheel"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">[bind] keydown</h4>
+      <mat-slide-toggle name="directive-keydown" [(ngModel)]="directive.keydown"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">[bind] mouse</h4>
+      <mat-slide-toggle name="directive-mouse" [(ngModel)]="directive.mouse"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">[bind] touch</h4>
+      <mat-slide-toggle name="directive-touch" [(ngModel)]="directive.touch"></mat-slide-toggle>
     </div>
     <div class="console-box-item">
       <h4 class="item-title">duration</h4>
-      <mat-slider name="keyboard-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="keyboard.options.duration" [displayWith]="durationLabel"></mat-slider>
+      <mat-slider name="directive-duration" min="0" max="5000" step="100" thumbLabel [(ngModel)]="directive.options.duration" [displayWith]="durationLabel"></mat-slider>
     </div>
     <div class="console-box-item">
       <h4 class="item-title">timing-function</h4>
       <mat-form-field color="accent">
-        <input matInput type="text" name="keyboard-timing-function" [(ngModel)]="keyboard.options.timingFunction" />
+        <input matInput type="text" name="directive-timing-function" [(ngModel)]="directive.options.timingFunction" />
       </mat-form-field>
     </div>
     <div class="console-box-item">
-      <h4 class="item-title">direction</h4>
+      <h4 class="item-title">scroll direction</h4>
       <mat-form-field color="accent">
-        <select matNativeControl name="keyboard-direction" [(ngModel)]="keyboard.direction">
+        <select matNativeControl name="directive-scroll-direction" [(ngModel)]="directive.detectDirection">
+          <option value="horizontal">horizontal</option>
+          <option value="vertical">vertical</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="console-box-item" *ngIf="directive.touch || directive.mouse">
+      <h4 class="item-title">action direction</h4>
+      <mat-form-field color="accent">
+        <select matNativeControl name="directive-direction" [(ngModel)]="directive.actionDirection">
+          <option value="mixed">mixed</option>
           <option value="horizontal">horizontal</option>
           <option value="vertical">vertical</option>
         </select>
@@ -182,12 +151,20 @@
     <div class="console-box-item">
       <h4 class="item-title">skip</h4>
       <mat-form-field color="accent">
-        <input matInput type="number" name="keyboard-skip" [(ngModel)]="keyboard.skip" />
+        <input matInput type="number" name="directive-skip" [(ngModel)]="directive.skip" />
       </mat-form-field>
     </div>
     <div class="console-box-item">
-      <h4 class="item-title">Interrupt</h4>
-      <button mat-raised-button type="button" (click)="interrupt('keyboard')" [disabled]="!keyboard.animating" color="primary">Interrupt!</button>
+      <h4 class="item-title">auto detect</h4>
+      <mat-slide-toggle name="directive-detection" [(ngModel)]="directive.autoDetect"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">auto interruption</h4>
+      <mat-slide-toggle name="directive-interruption" [(ngModel)]="directive.autoInterruption"></mat-slide-toggle>
+    </div>
+    <div class="console-box-item">
+      <h4 class="item-title">stop on arrival</h4>
+      <mat-slide-toggle name="directive-arrival" [(ngModel)]="directive.options.stopOnArrival"></mat-slide-toggle>
     </div>
   </form>
 
