@@ -25,9 +25,9 @@ Provide simple, configurable, cubic-bezier support smooth scroll for Angular 7+
 <a name="purpose">
 
 ## Purpose
-Javascript Browser APIs has `scrollTo` and `scrollIntoView` method. Which allows us to manipulate browser native scroll behavior easily.
+Javascript Browser APIs has `scrollTo` and `scrollIntoView` method. Which allow us to manipulate browser native scroll behavior easily.
 But some browser does not supports `behavior: 'smooth'` option. Thus, this methods doesn't have options for duration nor timing-function. And we have to seek for workaround to know when this behavior going to ends.
-This package is configurable, compatible, easy to use, and uses `rxjs.Observable` to notify the subscribers when behavior ends.
+This package is configurable, compatible, support timing function(even cubic-bezier function) and use `rxjs.Observable` to notify the subscribers when behavior ends.
 
 <a name="installation">
 
@@ -237,7 +237,7 @@ public scrollToTarget() {
 
 - **interrupt**: `() => boolean`
 
-    Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `afterAnimate` or `Observable` to catch actual animation ends).
+    Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `afterAnimate` to catch actual animation ends).
     - **@return**: `boolean`, whether interruption successful.
 
 ---
@@ -282,7 +282,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 
 - **interrupt**: `() => boolean`
 
-    Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `afterAnimate` or `Observable` to catch actual animation ends).
+    Interrupt current scroll animation(since `requestAnimationFrame` behaves asynchronously, use `Observable` to catch actual animation ends).
     - **@return**: `boolean`, whether interruption successful.
 
 ---
@@ -358,7 +358,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 <a name="issues">
 
 ## Issues
-If you found any errors or suggestion to this library, please open an [issue](https://github.com/Seemspyo/ngx-smooth-scroll/issues).
+If you found any errors or have suggestion to this library, please open an [issue](https://github.com/Seemspyo/ngx-smooth-scroll/issues).
 
 <a name="author">
 
