@@ -13,8 +13,8 @@ import { CoordsDetector } from './coords-detector.core';
 export class NgxSmoothScroll {
 
     private readonly timingFunctionMap: Map<string, string> = new Map([
-        [ 'ease', '.25,.1,.25,1' ],
         [ 'linear', '0,0,1,1' ],
+        [ 'ease', '.25,.1,.25,1' ],
         [ 'ease-in', '.42,0,1,1' ],
         [ 'ease-out', '0,0,.58,1' ],
         [ 'ease-in-out', '.42,0,.58,1' ]
@@ -126,10 +126,10 @@ export class NgxSmoothScroll {
         if (this.subject) {
             this.subject.next(coords);
             this.subject.complete();
-        }
 
-        this.frameId = null;
-        this.subject = null;
+            this.frameId = null;
+            this.subject = null;
+        }
     }
 
     private parseTimingFunction(timingFunction: string): bezierArray {

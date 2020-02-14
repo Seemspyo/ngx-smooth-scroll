@@ -4,7 +4,7 @@
 </p>
 
 [![Demo](https://img.shields.io/badge/Demo-online-brightgreen)](https://playground.eunsatio.io/projects/ngx-smooth-scroll-demo/)
-[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://github.com/Seemspyo/ngx-smooth-scroll/)
+[![Version](https://img.shields.io/badge/version-1.0.4-blue)](https://github.com/Seemspyo/ngx-smooth-scroll/)
 [![Angular](https://img.shields.io/badge/ng-^7.0.0-red)](https://angular.io/)
 [![License](https://img.shields.io/badge/license-MIT-9cf)](https://github.com/Seemspyo/ngx-smooth-scroll/blob/master/projects/ngx-smooth-scroll/LICENSE)
 
@@ -43,7 +43,7 @@ npm install @eunsatio/ngx-smooth-scroll
 ## Usage
 
 ### Use with directive
-Import `NgxSmoothScrollModule` into your module.
+> Import `NgxSmoothScrollModule` into your module.
 
 #### Basic usage(bind to wheel event)
 ```html
@@ -89,7 +89,7 @@ public options: NgxSmoothScrollDirectiveOption = {
 ```
 
 ### Use as service
-Import and Inject `NgxSmoothScrollService`.
+> Import and Inject `NgxSmoothScrollService`.
 
 ```ts
 public scrollToTarget() {
@@ -101,7 +101,7 @@ public scrollToTarget() {
 ```
 
 ### Use directly
-Import `NgxSmoothScroll`.
+> Import `NgxSmoothScroll`.
 
 ```ts
 ngAfterViewInit() {
@@ -288,8 +288,7 @@ new NgxSmoothScroll(containerEl, childSelector);
 ---
 
 ### NgxSmoothScrollService(@Injectable)
-
-    A simple wrapper for `NgxSmoothScroll`.
+> A simple wrapper for `NgxSmoothScroll`.
 
 #### Methods
 - **createInstance**: `(contaierEl, childSelector) => NgxSmoothScroll`
@@ -333,12 +332,12 @@ new NgxSmoothScroll(containerEl, childSelector);
 - **timingFunction**: `string`
 
     The scroll animation timing function, support **cubic-bezier**.
-    - `linear`
-    - `ease`
-    - `ease-in`
-    - `ease-out`
-    - `ease-in-out`
-    - `cubic bezier`: ex) '.13, 1.07, .51, 1.29', check more at [cubic-bezier.com](https://cubic-bezier.com/)
+    - `'linear'`
+    - `'ease'`
+    - `'ease-in'`
+    - `'ease-out'`
+    - `'ease-in-out'`
+    - `'cubic bezier'`: ex) '.13, 1.07, .51, 1.29', check more at [cubic-bezier.com](https://cubic-bezier.com/)
     - **@default**: `'ease'`
 
 - **alignX**: `'start' | 'center' | 'end'`
@@ -364,4 +363,4 @@ If you found any errors or suggestion to this library, please open an [issue](ht
 <a name="author">
 
 ## Author
-SeemsPyo [Github](https://github.com/Seemspyo), [Homepage](https://eunsatio.io)
+SeemsPyo(@eunsatio) [Github](https://github.com/Seemspyo), [Homepage](https://eunsatio.io)

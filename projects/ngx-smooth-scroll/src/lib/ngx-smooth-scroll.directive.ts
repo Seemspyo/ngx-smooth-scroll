@@ -77,7 +77,9 @@ export class NgxSmoothScrollDirective implements AfterViewInit, OnChanges, OnDes
     this.coordsDetector = new CoordsDetector(this.containerEl);
     this.renderHelper = new RenderHelper(this.renderer);
 
-    for (const key of ['wheel', 'keydown', 'mouse', 'touch']) if (this.isTruthy(this[key])) this.changeActions[key](this[key]);
+    for (const key of ['wheel', 'keydown', 'mouse', 'touch']) {
+      if (this.isTruthy(this[key])) this.changeActions[key](this[key]);
+    }
 
     if (!this.autoDetect) this._currentIndex = this.detectCurrentIndex();
   }
