@@ -1,6 +1,6 @@
 {
   "name": "@eunsatio/ngx-smooth-scroll",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Provide simple & configurable & cubic-bezier support smooth scroll for Angular 7+",
   "keywords": [
     "angular",
@@ -36,7 +36,10 @@
     "url": "https://github.com/Seemspyo/ngx-smooth-scroll"
   },
   "peerDependencies": {
-    "@angular/common": "^7.0.0",
-    "@angular/core": "^7.0.0"
+    "@angular/common": ">7.0.0",
+    "@angular/core": ">7.0.0",
+    "rxjs": ">6.0.0",
+    "zone.js": "^0.10.0",
+    "tslib": ">1.0.0"
   }
 }
