@@ -35,8 +35,12 @@
     "type": "git",
     "url": "https://github.com/Seemspyo/ngx-smooth-scroll"
   },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
   "peerDependencies": {
-    "@angular/common": "^7.0.0",
-    "@angular/core": "^7.0.0"
+    "@angular/common": ">=7.0.0",
+    "@angular/core": ">=7.0.0",
+    "rxjs": ">=6.2.0"
   }
 }
