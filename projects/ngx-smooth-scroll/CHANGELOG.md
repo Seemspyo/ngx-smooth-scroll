@@ -1,3 +1,4 @@
+#### 1.0.5 Dependency fixes
 #### 1.0.4 Update README
 #### 1.0.3 Update README
 #### 1.0.2 more specific error message
